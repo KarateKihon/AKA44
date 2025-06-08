@@ -24,14 +24,95 @@
 </head>
 <body>
   <h1>Générateur de Kihon</h1>
-  <p>Choisis un niveau pour générer une combinaison :</p>
-  <button id="btnBeginner">Débutant</button>
-  <button id="btnAdvanced">Avancé (Sanbon)</button>
-  <div class="combo" id="combo"></div>
+  <p>Choisis un niveau :</p>
+  <button onclick="generateBeginner()">Débutant</button>
+  <button onclick="generateAdvanced()">Avancé (Sanbon)</button>
+  <div id="combo" class="combo"></div>
 
   <script>
-    // Données
     const ashis = ["Ayumi ashi", "Hiki ashi"];
     const dashis = ["Zenkutsu dashi", "Kokutsu dashi", "Neko dashi"];
     const ukes = [
-      ["Jodan age uke", "Jod]()
+      ["Jodan age uke", "Jodan"],
+      ["Shuto uke", "Chudan"],
+      ["Otoshi uke", "Gedan"]
+    ];
+    const zukis = [
+      ["Oi zuki", "Jodan"],
+      ["Giaku zuki", "Chudan"],
+      ["Tate zuki", "Gedan"]
+    ];
+    const geris = [
+      ["Mae geri", "Jodan"],
+      ["Mawashi geri", "Chudan"],
+      ["Mikazuki geri", "Gedan"]
+    ];
+
+    function chooseRandom(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function zukiOrGeri() {
+      const list = Math.random() < 0.5 ? zukis : geris;
+      const [tech, height] = chooseRandom(list);
+      return `${tech} (${height})`;
+    }
+
+    function generateBeginner() {
+      const a1 = chooseRandom(ashis);
+      const b1 = chooseRandom(dashis);
+      const [c, cH] = chooseRandom(ukes);
+      const [d, dH] = chooseRandom(zukis);
+      const b2 = chooseRandom(dashis);
+      const gOrD = zukiOrGeri();
+
+      const combo = [
+        a1,
+        b1,
+        `${c} (${cH})`,
+        `${d} (${dH})`,
+        b2,
+        gOrD
+      ];
+
+      document.getElementById("combo").innerHTML = combo.join("<br>");
+    }
+
+    function generateAdvanced() {
+      const a1 = chooseRandom(ashis);
+      const b1 = chooseRandom(dashis);
+      const [c, cH] = chooseRandom(ukes);
+      const [d, dH] = chooseRandom(zukis);
+      const b2 = chooseRandom(dashis);
+      const gOrD1 = zukiOrGeri();
+      const a2 = chooseRandom(ashis);
+      const b3 = chooseRandom(dashis);
+      const gOrD2 = zukiOrGeri();
+      const b4 = chooseRandom(dashis);
+      const gOrD3 = zukiOrGeri();
+      const a3 = chooseRandom(ashis);
+      const b5 = chooseRandom(dashis);
+      const gOrD4 = zukiOrGeri();
+
+      const combo = [
+        a1,
+        b1,
+        `${c} (${cH})`,
+        `${d} (${dH})`,
+        b2,
+        gOrD1,
+        a2,
+        b3,
+        gOrD2,
+        b4,
+        gOrD3,
+        a3,
+        b5,
+        gOrD4
+      ];
+
+      document.getElementById("combo").innerHTML = combo.join("<br>");
+    }
+  </script>
+</body>
+</html>
