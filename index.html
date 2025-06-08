@@ -18,49 +18,61 @@
     .combo {
       margin-top: 30px;
       font-size: 20px;
+      line-height: 1.8em;
     }
   </style>
 </head>
 <body>
-  <h1>Générateur de Kihon 🥋</h1>
+  <h1>Générateur de Kihon</h1>
   <p>Appuie sur le bouton pour générer une nouvelle combinaison :</p>
-  <button onclick="generateCombo()">🎲 Nouvelle combinaison</button>
+  <button onclick="generateCombo()">Nouvelle combinaison</button>
   <div class="combo" id="combo"></div>
 
   <script>
-    const deplacements = [
-      ["Zenkutsu dachi", "position avant"],
-      ["Kokutsu dachi", "position arrière"],
-      ["Tsugi ashi", "pas glissé"],
-      ["Yori ashi", "pas chassé"]
+    const ashis = ["Ayumi ashi", "Hiki ashi", "Tsugi ashi"];
+    const dashis = ["Zenkutsu dashi", "Kokutsu dashi", "Neko dashi"];
+
+    const ukes = [
+      ["Jodan age uke", "Jodan"],
+      ["Shuto uke", "Chudan"],
+      ["Otoshi uke", "Gedan"]
     ];
 
-    const techniquesBras = [
-      ["Oi zuki", "coup de poing direct (même bras que jambe avant)"],
-      ["Gyaku zuki", "coup de poing inversé"],
-      ["Age uke", "blocage vers le haut"],
-      ["Soto uke", "blocage extérieur"],
-      ["Uchi uke", "blocage intérieur"],
-      ["Shuto uke", "blocage au sabre de main"]
+    const zukis = [
+      ["Oi zuki", "Jodan"],
+      ["Giaku zuki", "Chudan"],
+      ["Tate zuki", "Gedan"]
     ];
 
-    const techniquesJambe = [
-      ["Mae geri", "coup de pied avant"],
-      ["Yoko geri", "coup de pied latéral"],
-      ["Mawashi geri", "coup de pied circulaire"],
-      ["Ushiro geri", "coup de pied arrière"]
-    ];
+    const uchis = ["Tetsui uchi", "Uraken uchi", "Shuto uchi"];
+    const geris = ["Mae geri", "Mawashi geri", "Mikazuki geri"];
 
     function generateCombo() {
-      const dep = deplacements[Math.floor(Math.random() * deplacements.length)];
-      const bras = techniquesBras[Math.floor(Math.random() * techniquesBras.length)];
-      const jambe = techniquesJambe[Math.floor(Math.random() * techniquesJambe.length)];
+      const ashi = ashis[Math.floor(Math.random() * ashis.length)];
+      const dashi = dashis[Math.floor(Math.random() * dashis.length)];
+
+      const techniqueType = Math.floor(Math.random() * 3); // 0: zuki, 1: uke, 2: uchi
+      let technique = "";
+
+      if (techniqueType === 0) {
+        const zuki = zukis[Math.floor(Math.random() * zukis.length)];
+        technique = `${zuki[0]} (${zuki[1]})`;
+      } else if (techniqueType === 1) {
+        const uke = ukes[Math.floor(Math.random() * ukes.length)];
+        technique = `${uke[0]} (${uke[1]})`;
+      } else {
+        const uchi = uchis[Math.floor(Math.random() * uchis.length)];
+        technique = uchi;
+      }
+
+      const geri = geris[Math.floor(Math.random() * geris.length)];
 
       const comboDiv = document.getElementById("combo");
       comboDiv.innerHTML = `
-        🏃‍♂️ <strong>Déplacement :</strong> ${dep[0]} (${dep[1]})<br>
-        👊 <strong>Bras :</strong> ${bras[0]} (${bras[1]})<br>
-        🦵 <strong>Jambe :</strong> ${jambe[0]} (${jambe[1]})
+        ${ashi}<br>
+        ${dashi}<br>
+        ${technique}<br>
+        ${geri}
       `;
     }
   </script>
