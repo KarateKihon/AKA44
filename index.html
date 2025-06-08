@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Générateur de Kihon</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .combo {
+      margin-top: 30px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Générateur de Kihon 🥋</h1>
+  <p>Appuie sur le bouton pour générer une nouvelle combinaison :</p>
+  <button onclick="generateCombo()">🎲 Nouvelle combinaison</button>
+  <div class="combo" id="combo"></div>
+
+  <script>
+    const deplacements = [
+      ["Zenkutsu dachi", "position avant"],
+      ["Kokutsu dachi", "position arrière"],
+      ["Tsugi ashi", "pas glissé"],
+      ["Yori ashi", "pas chassé"]
+    ];
+
+    const techniquesBras = [
+      ["Oi zuki", "coup de poing direct (même bras que jambe avant)"],
+      ["Gyaku zuki", "coup de poing inversé"],
+      ["Age uke", "blocage vers le haut"],
+      ["Soto uke", "blocage extérieur"],
+      ["Uchi uke", "blocage intérieur"],
+      ["Shuto uke", "blocage au sabre de main"]
+    ];
+
+    const techniquesJambe = [
+      ["Mae geri", "coup de pied avant"],
+      ["Yoko geri", "coup de pied latéral"],
+      ["Mawashi geri", "coup de pied circulaire"],
+      ["Ushiro geri", "coup de pied arrière"]
+    ];
+
+    function generateCombo() {
+      const dep = deplacements[Math.floor(Math.random() * deplacements.length)];
+      const bras = techniquesBras[Math.floor(Math.random() * techniquesBras.length)];
+      const jambe = techniquesJambe[Math.floor(Math.random() * techniquesJambe.length)];
+
+      const comboDiv = document.getElementById("combo");
+      comboDiv.innerHTML = `
+        🏃‍♂️ <strong>Déplacement :</strong> ${dep[0]} (${dep[1]})<br>
+        👊 <strong>Bras :</strong> ${bras[0]} (${bras[1]})<br>
+        🦵 <strong>Jambe :</strong> ${jambe[0]} (${jambe[1]})
+      `;
+    }
+  </script>
+</body>
+</html>
