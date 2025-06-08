@@ -25,11 +25,12 @@
 <body>
   <h1>Générateur de Kihon</h1>
   <p>Choisis un niveau pour générer une combinaison :</p>
-  <button onclick="generateBeginner()">Débutant</button>
-  <button onclick="generateAdvanced()">Avancé</button>
+  <button id="btnBeginner">Débutant</button>
+  <button id="btnAdvanced">Avancé</button>
   <div class="combo" id="combo"></div>
 
   <script>
+    // Données
     const ashis = ["Ayumi ashi", "Hiki ashi"];
     const dashis = ["Zenkutsu dashi", "Kokutsu dashi", "Neko dashi"];
     const ukes = [
@@ -48,6 +49,7 @@
       ["Mikazuki geri", "Gedan"]
     ];
 
+    // Fonctions utilitaires
     function chooseRandom(list) {
       return list[Math.floor(Math.random() * list.length)];
     }
@@ -58,6 +60,7 @@
       return `${tech} (${height})`;
     }
 
+    // Débutant
     function generateBeginner() {
       const a1 = chooseRandom(ashis);
       const b1 = chooseRandom(dashis);
@@ -78,6 +81,7 @@
       document.getElementById("combo").innerHTML = combo.join("<br>");
     }
 
+    // Avancé
     function generateAdvanced() {
       const a1 = chooseRandom(ashis);
       const b1 = chooseRandom(dashis);
@@ -100,3 +104,13 @@
         b3,
         gOrD2
       ];
+
+      document.getElementById("combo").innerHTML = combo.join("<br>");
+    }
+
+    // Attacher les événements aux boutons
+    document.getElementById("btnBeginner").onclick = generateBeginner;
+    document.getElementById("btnAdvanced").onclick = generateAdvanced;
+  </script>
+</body>
+</html>
