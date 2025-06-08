@@ -12,7 +12,7 @@
     button {
       font-size: 18px;
       padding: 10px 20px;
-      margin-top: 20px;
+      margin: 10px;
       cursor: pointer;
     }
     .combo {
@@ -24,8 +24,9 @@
 </head>
 <body>
   <h1>Générateur de Kihon</h1>
-  <p>Appuie sur le bouton pour générer une nouvelle combinaison :</p>
-  <button onclick="generateCombo()">Nouvelle combinaison</button>
+  <p>Choisis un niveau pour générer une combinaison :</p>
+  <button onclick="generateBeginner()">Débutant</button>
+  <button onclick="generateAdvanced()">Avancé</button>
   <div class="combo" id="combo"></div>
 
   <script>
@@ -51,31 +52,51 @@
       return list[Math.floor(Math.random() * list.length)];
     }
 
-    function generateCombo() {
-      const ashi1 = chooseRandom(ashis);
-      const dashi1 = chooseRandom(dashis);
-      const uke = chooseRandom(ukes);
-      const zuki1 = chooseRandom(zukis);
-      const dashi2 = chooseRandom(dashis);
-
-      const zukiOrGeri1 = Math.random() < 0.5 ? chooseRandom(zukis) : chooseRandom(geris);
-      const ashi2 = chooseRandom(ashis);
-      const dashi3 = chooseRandom(dashis);
-      const zukiOrGeri2 = Math.random() < 0.5 ? chooseRandom(zukis) : chooseRandom(geris);
-
-      const comboDiv = document.getElementById("combo");
-      comboDiv.innerHTML = `
-        ${ashi1}<br>
-        ${dashi1}<br>
-        ${uke[0]} (${uke[1]})<br>
-        ${zuki1[0]} (${zuki1[1]})<br>
-        ${dashi2}<br>
-        ${zukiOrGeri1[0]} (${zukiOrGeri1[1]})<br>
-        ${ashi2}<br>
-        ${dashi3}<br>
-        ${zukiOrGeri2[0]} (${zukiOrGeri2[1]})
-      `;
+    function zukiOrGeri() {
+      const list = Math.random() < 0.5 ? zukis : geris;
+      const [tech, height] = chooseRandom(list);
+      return `${tech} (${height})`;
     }
-  </script>
-</body>
-</html>
+
+    function generateBeginner() {
+      const a1 = chooseRandom(ashis);
+      const b1 = chooseRandom(dashis);
+      const [c, cH] = chooseRandom(ukes);
+      const [d, dH] = chooseRandom(zukis);
+      const b2 = chooseRandom(dashis);
+      const gOrD = zukiOrGeri();
+
+      const combo = [
+        a1,
+        b1,
+        `${c} (${cH})`,
+        `${d} (${dH})`,
+        b2,
+        gOrD
+      ];
+
+      document.getElementById("combo").innerHTML = combo.join("<br>");
+    }
+
+    function generateAdvanced() {
+      const a1 = chooseRandom(ashis);
+      const b1 = chooseRandom(dashis);
+      const [c, cH] = chooseRandom(ukes);
+      const [d, dH] = chooseRandom(zukis);
+      const b2 = chooseRandom(dashis);
+      const gOrD1 = zukiOrGeri();
+      const a2 = chooseRandom(ashis);
+      const b3 = chooseRandom(dashis);
+      const gOrD2 = zukiOrGeri();
+
+      const combo = [
+        a1,
+        b1,
+        `${c} (${cH})`,
+        `${d} (${dH})`,
+        b2,
+        gOrD1,
+        a2,
+        b3,
+        gOrD2
+      ];
