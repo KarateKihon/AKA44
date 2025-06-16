@@ -1,0 +1,58 @@
+<!-- calculateur-frequence.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur de Fréquence</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .container { max-width: 400px; margin: auto; }
+    label { display: block; margin-top: 1rem; }
+    input, select, button { width: 100%; padding: 0.5rem; margin-top: 0.5rem; }
+    .result { margin-top: 1rem; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculateur de Fréquence</h1>
+    <section>
+      <h2>Note → Fréquence</h2>
+      <label for="noteSelect">Note :</label>
+      <select id="noteSelect">
+        <option>C</option><option>C#</option><option>D</option><option>D#</option>
+        <option>E</option><option>F</option><option>F#</option><option>G</option>
+        <option>G#</option><option>A</option><option>A#</option><option>B</option>
+      </select>
+      <label for="octaveInput">Octave :</label>
+      <input type="number" id="octaveInput" value="4" min="0" max="8">
+      <button onclick="noteToFreq()">Calculer Fréquence</button>
+      <div class="result" id="freqResult"></div>
+    </section>
+    <section>
+      <h2>Fréquence → Note</h2>
+      <label for="freqInput">Fréquence (Hz) :</label>
+      <input type="number" id="freqInput" value="440" min="1">
+      <button onclick="freqToNote()">Calculer Note</button>
+      <div class="result" id="noteResult"></div>
+    </section>
+  </div>
+  <script>
+    const notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+    function noteToFreq() {
+      const note = document.getElementById('noteSelect').value;
+      const octave = +document.getElementById('octaveInput').value;
+      const midi = notes.indexOf(note) + 12*(octave+1);
+      const freq = 440 * Math.pow(2, (midi-69)/12);
+      document.getElementById('freqResult').textContent = freq.toFixed(2)+' Hz';
+    }
+    function freqToNote() {
+      const f = +document.getElementById('freqInput').value;
+      const m = Math.round(12*Math.log2(f/440)+69);
+      const note = notes[m%12];
+      const oct = Math.floor(m/12)-1;
+      document.getElementById('noteResult').textContent = note+oct+' (MIDI '+m+')';
+    }
+  </script>
+</body>
+</html>
